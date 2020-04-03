@@ -6,4 +6,23 @@ class CarsController < ApplicationController
             redirect '/login'
         end 
     end 
+
+    post '/cars' do 
+        if logged_in?
+            if params[:make] == "" || params[:model] == "" || params[:year] == "" || params[:trim] == ""
+                redirect '/cars/new'
+            else 
+                @car = current_user.cars.create(make: params[:make], model: params[:model], year: params[:year], trim: params[:trim])
+                if @car.save
+                    redirect "/cars/#{@car.id}"
+                else 
+                    redirect '/cars/new'
+                end 
+            end
+        else
+            redirect '/login/'
+        end 
+    end 
+
+
 end
