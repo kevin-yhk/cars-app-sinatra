@@ -18,4 +18,8 @@ class UsersController < ApplicationController
         @user = User.find_by(id: params[:id])
         erb :'/users/show'
       end
+
+      get '/signup' do
+          erb :'/users/create'
+      end
 end 
