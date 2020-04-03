@@ -24,5 +24,14 @@ class CarsController < ApplicationController
         end 
     end 
 
+    get '/cars/:id' do
+        if logged_in?
+          @car = Car.find_by_id(params[:id])
+          erb :'cars/show'
+        else
+          redirect '/login'
+        end
+    end
+
 
 end
