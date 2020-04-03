@@ -1,4 +1,14 @@
 class CarsController < ApplicationController
+    
+    get '/cars' do
+        if logged_in? 
+            @cars =Car.all
+            erb :'/cars/index'
+        else 
+            redirect '/login'
+        end 
+    end
+    
     get '/cars/new' do
         if logged_in?
             erb :'cars/create'
@@ -32,6 +42,8 @@ class CarsController < ApplicationController
           redirect '/login'
         end
     end
+
+
 
 
 end
