@@ -1,0 +1,9 @@
+<h2>ALL CARS </h2>
+
+<% @cars.each do |car|%>
+  <p><%= car.make %></p>
+  <p><%= car.model %></p>
+  <p><%= car.year %></p>
+  <p><%= car.trim %></p>
+  <strong><p>Owned By: <%= car.user.username%></p></strong>
+<% end %>
