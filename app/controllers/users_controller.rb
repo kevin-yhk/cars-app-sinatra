@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
-    get '/login' do 
-        erb :'/users/login'
+    get '/login' do
+        if logged_in?
+            redirect "/users/#{current_user.id}"
+        else 
+            erb :'/users/login'
+        end
     end 
 
     post '/login' do
@@ -12,18 +16,26 @@ class UsersController < ApplicationController
         else
            redirect '/login'
         end
-     end
+    end
 
-     get '/users/:id' do
+    get '/users/:id' do
         @user = User.find_by(id: params[:id])
-        erb :'/users/show'
-      end
+        if logged_in? && @user == current_user
+            erb :'/users/show'
+        else 
+            redirect to '/login'
+        end 
+    end
 
-      get '/signup' do
-          erb :'/users/create'
-      end
+    get '/signup' do
+        if logged_in?
+            redirect "/users/#{current_user.id}"
+        else 
+            erb :'/users/create'
+        end
+    end 
 
-      post '/signup/' do
+    post '/signup/' do
         @user = User.new(params)
         if @user.save 
             session[:user_id] = @user.id 
