@@ -57,28 +57,19 @@ class CarsController < ApplicationController
         end
     end
 
-    patch '/sentences/:id' do
+    patch '/cars/:id' do
         if logged_in?
-          if params[:make] == "" || params[:model] == "" || params[:year] == "" || params[:trim] == ""
-            redirect to "/cars/#{params[:id]}/edit"
-          else
             @car = Car.find_by_id(params[:id])
-            if @car && @car.user == current_user
-              if @car.update(make: params[:make], model: params[:model], year: params[:year], trim: params[:trim])
-                redirect to "/cars/#{@car.id}"
-              else
-                redirect "/cars/#{@car.id}/edit"
-              end
+            if @car.user == current_user && params[:make] != "" && params[:model] != "" && params[:year] != "" && params[:trim] != ""
+                @car.update(make: params[:make], model: params[:model], year: params[:year], trim: params[:trim])
+                redirect "/cars/#{@car.id}"
             else
-              redirect '/cars'
+                redirect "/cars/#{@car.id}/edit"
             end
-          end
-        else
-          redirect '/login'
+        else 
+            redirect '/login'
         end
     end
-
-
 
 
 end
