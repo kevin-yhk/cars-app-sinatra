@@ -1,8 +1,10 @@
 <h2><%= @current_user.username%>'s Cars </h2>
 
 <% @cars.each do |car|%>
-  <p><%= car.make %></p>
-  <p><%= car.model %></p>
-  <p><%= car.year %></p>
-  <p><%= car.trim %></p><br>
+  <p>Make: <%= car.make %></p>
+  <p>Model: <%= car.model %></p>
+  <p>Year: <%= car.year %></p>
+  <p>Trim: <%= car.trim %></p>
+  <p><a href="/cars/<%= car.id %>">Link to Car</a></p><br>
 <% end %>
+
