@@ -2,7 +2,8 @@ class CarsController < ApplicationController
     
     get '/cars' do
         if logged_in? 
-            @cars =Car.all
+            @current_user = current_user
+            @cars = Car.select{|car|car.user_id == @current_user.id}
             erb :'/cars/index'
         else 
             redirect '/login'
