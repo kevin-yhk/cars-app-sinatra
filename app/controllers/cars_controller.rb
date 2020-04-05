@@ -71,5 +71,17 @@ class CarsController < ApplicationController
         end
     end
 
+    delete '/cars/:id/delete' do
+        if logged_in?
+          @car = Car.find_by_id(params[:id])
+          if @car && @car.user == current_user
+            @car.delete
+            redirect "/cars"
+          else
+            redirect "/login"
+          end
+        end
+    end
+
 
 end
