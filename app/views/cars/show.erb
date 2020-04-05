@@ -5,4 +5,11 @@
 <h3><%=@car.year%></h3>
 <h3><%=@car.trim%></h3><br>
 <p><a href="/cars/<%=@car.id%>/edit">Edit Car</a></p>
-<p>Delete Link</p>
+<p><a href="/cars">All Cars</a></p>
+
+<form method="post" action="/cars/<%= @car.id %>/delete">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Car">
+</form>
+
+
